@@ -1,6 +1,6 @@
 package jumpingalien.part1.facade;
 
-import model.Mazub;
+import jumpingalien.model.Mazub;
 import jumpingalien.util.ModelException;
 import jumpingalien.util.Sprite;
 
@@ -19,7 +19,7 @@ public class Facade implements IFacade {
 
 	@Override
 	public int[] getLocation(Mazub alien) {
-		int [] location = {alien.getX(),alien.getY()};
+		int [] location = {(int)alien.getX(), (int) alien.getY()};
 		return location;
 	}
 

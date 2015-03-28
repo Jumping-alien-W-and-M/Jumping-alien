@@ -1,7 +1,7 @@
 package jumpingalien.part1.facade;
 
+import jumpingalien.model.Mazub;
 import jumpingalien.util.Sprite;
-import model.Mazub;
 
 /**
  * Implement this interface to connect your code to the graphical user interface
@@ -83,7 +83,6 @@ public interface IFacade {
 	 * @return
 	 */
 	Mazub createMazub(int pixelLeftX, int pixelBottomY, Sprite[] sprites);
-		 
 
 	/**
 	 * Return the current location of the given alien.
@@ -95,7 +94,6 @@ public interface IFacade {
 	 *         coordinates of the given alien's bottom left pixel in the world.
 	 */
 	int[] getLocation(Mazub alien);
-		
 
 	/**
 	 * Return the current velocity (in m/s) of the given alien.
