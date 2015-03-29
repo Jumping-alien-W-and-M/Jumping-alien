@@ -375,7 +375,7 @@ public class World {
 	public ArrayList<Plant> getPlants() {
 		return this.plants;
 	}
-	
+
 	private final ArrayList<Plant> plants = new ArrayList<Plant>();
 	
 	/**
