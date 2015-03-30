@@ -194,10 +194,10 @@ public class World {
 		
 		if (x > player.getX() - window_margin) {
 			// If Mazub is too close to the left wall.
-			x = player.getX() - window_margin;
+			x = (int) player.getX() - window_margin;
 		} else if (x + getWindowWidth() < player.getX() + window_margin) {
 			// If Mazub is too close to the right wall.
-			x = player.getX() + window_margin - getWindowWidth();
+			x = (int) player.getX() + window_margin - getWindowWidth();
 		}
 		
 		return Math.max(0, Math.min(getWorldWidth() - getWindowWidth(), x));
@@ -218,10 +218,10 @@ public class World {
 		
 		if (y > player.getY() - window_margin) {
 			// If Mazub is too close to the left wall.
-			y = player.getY() - window_margin;
+			y = (int) player.getY() - window_margin;
 		} else if (y + getWindowHeight() < player.getY() + window_margin) {
 			// If Mazub is too close to the right wall.
-			y = player.getY() + window_margin - getWindowHeight();
+			y = (int) player.getY() + window_margin - getWindowHeight();
 		}
 		
 		return Math.max(0, Math.min(getWorldHeight() - getWindowHeight(), y));
@@ -311,8 +311,8 @@ public class World {
 	 */
 	private boolean touchesTarget() {
 		
-		for(int x = player.getX(); x <= player.getX() + player.getWidth(); x += player.getWidth()) {
-			for(int y = player.getY(); y <= player.getY() + player.getHeight(); y += player.getHeight()) {
+		for(int x = (int) player.getX(); x <= player.getX() + player.getWidth(); x += player.getWidth()) {
+			for(int y = (int) player.getY(); y <= player.getY() + player.getHeight(); y += player.getHeight()) {
 				if ((getTilePos(x) == getXTarget())
 						&& (getTilePos(y) == getYTarget())) {
 					return true;
