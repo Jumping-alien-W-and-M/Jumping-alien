@@ -3,6 +3,7 @@ package jumpingalien.model;
 import java.util.ArrayList;
 
 import jumpingalien.util.*;
+import jumpingalien.model.GameObject;
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Immutable;
 import be.kuleuven.cs.som.annotate.Model;
@@ -20,7 +21,7 @@ import be.kuleuven.cs.som.annotate.Model;
  * @author Michiel Bollen en Wouter Baert
  * @version 2.0
  */
-public class Mazub {
+public class Mazub extends GameObject{
 	
 	/**
 	 * Creates a new Mazub at a given position with a series of given sprites.
@@ -53,125 +54,14 @@ public class Mazub {
 	 * 			| new.getLastMove() = 0
 	 */
 	public Mazub(double x, double y, Sprite[] images) {
+		super(x,y,images);
 		assert(images.length >= 10 && images.length%2 == 0);
 		
-		setX(x);
-		setY(y);
-		this.images = images;
-
-		setVx(0);
 		setVxmax(3);
-		setVy(0);
-		setAx(0);
-		setAy(0);
 		
 		setLastMove(0);
 	}
-	
-	/**
-	 * Gets the x-position of this Mazub.
-	 */
-	@Basic
-	public double getX() {
-		return this.x;
-	}
-	
-	/**
-	 * Sets the x-position of this Mazub.
-	 * 
-	 * @param x
-	 * 			This Mazub's new x-position in pixels.
-	 * @post	This Mazub's new x-position will be equal to the given x.
-	 * 			| new.getX() == x
-	 * @throws	IllegalArgumentException
-	 * 			Throws an exception if x is outside the game world.
-	 * 			| !isValidX(x)
-	 */
-	protected void setX(double x) throws IllegalArgumentException {
-		if (!isValidX(x)) {
-			throw new IllegalArgumentException();
-		}
-		this.x = x;
-	}
-	
-	/**
-	 * Checks if the given x is a valid x-position for this Mazub in the game world.
-	 * 
-	 * @param x
-	 * 			The x-position in pixels which should be checked.
-	 * @return	Whether or not the given x is within the game world.
-	 * 			| result = (x >= 0 && x < getWorldWidth)
-	 */
-	public boolean isValidX(double x) {
-		return (x >= 0 && x < getWorld().getWorldWidth());
-	}
-	
-	private double x;
-	
-	/**
-	 * Gets the y-position of this Mazub.
-	 */
-	@Basic
-	public double getY() {
-		return this.y;
-	}
-	
-	/**
-	 * Sets the y-position of this Mazub.
-	 * 
-	 * @param y
-	 * 			This Mazub's new y-position in pixels.
-	 * @post	This Mazub's new y-position will be equal to the given y.
-	 * 			| new.getY() == y
-	 * @throws	IllegalArgumentException
-	 * 			If y is outside the game world.
-	 * 			| !isValidY(y)
-	 */
-	protected void setY(double y) throws IllegalArgumentException {
-		if (!isValidY(y)) {
-			throw new IllegalArgumentException();
-		}
-		this.y = y;
-	}
-	
-	/**
-	 * Checks if the given y is a valid y-position for this Mazub in the game world.
-	 * 
-	 * @param y
-	 * 			The y-position in pixels which should be checked.
-	 * @return	Whether or not the given y is within the game world.
-	 * 			| result = (y >= 0 && y < getWorldHeight())
-	 */
-	public boolean isValidY(double y) {
-		return (y >= 0 && y < getWorld().getWorldHeight()); 
-	}
-	
-	private double y;
-	
-	
-	
-	/**
-	 * Gets the horizontal velocity of this Mazub.
-	 */
-	@Basic
-	public double getVx() {
-		return this.vx;
-	}
-	
-	/**
-	 * Sets the horizontal velocity of this Mazub.
-	 * 
-	 * @param vx
-	 * 			The new horizontal velocity of this Mazub in meters per second (1m = 100 pixels).
-	 * @pre		The given vx must be in between -vxmax and vxmax.
-	 * 			| isValidVx(vx)
-	 * @post	The new horizontal velocity of this Mazub is equal to vx.
-	 * 			| new.getVx() = vx
-	 */
-	protected void setVx(double vx) {
-		assert isValidVx(vx);
-		this.vx = vx;
-	}
+		
 	
 	/**
 	 * Checks if the given vx is a valid horizontal velocity.
@@ -186,8 +76,7 @@ public class Mazub {
 				|| (vx == 0)
 				|| (vxi <= vx && vx <= vxmax));
 	}
-	
-	private double vx;
+
 	
 	/**
 	 * Gets the magnitude of the initial horizontal velocity any Mazub starts with when they start moving.
@@ -199,27 +88,7 @@ public class Mazub {
 
 	private final double vxi = 1;
 	
-	/**
-	 * Gets the magnitude of the maximal horizontal velocity any Mazub can achieve when moving.
-	 */
-	@Basic
-	public double getVxmax() {
-		return this.vxmax;
-	}
 	
-	/**
-	 * Sets this Mazub's maximal horizontal velocity to a given vxmax.
-	 * 
-	 * @param vxmax
-	 * 			The maximal horizontal velocity this Mazub should have.
-	 * @post	The new Mazub's vxmax should be equal to the given max.
-	 * 			| new.getVxmax() == vxmax
-	 */
-	protected void setVxmax(double vxmax) {
-		this.vxmax = vxmax;
-	}
-	
-	private double vxmax;
 	
 	/**
 	 * Gets the vertical velocity of this Mazub.
@@ -243,6 +112,7 @@ public class Mazub {
 	 *			|	then new.getVy() = 8
 	 *
 	 */
+	@Override
 	protected void setVy(double vy) {
 		if (vy <= 8) {
 			this.vy = vy;
@@ -251,7 +121,7 @@ public class Mazub {
 		}
 	}
 	
-	private double vy;
+
 	
 	/**
 	 * Gets the horizontal acceleration of this Mazub.
@@ -623,7 +493,7 @@ public class Mazub {
 	
 	private double time_invincible;
 	
-	private void terminate(){
+	protected void terminate(){
 		World.setMazub(getWorld(),null);
 		setWorld(null);
 	}
@@ -662,13 +532,13 @@ public class Mazub {
 			Object [][] collisions = getWorld().collisionDetect(this);
 			if((collisions[0][0] == null) && (collisions[0][1] == null) && (getVx() < 0)
 				|| (collisions[1][0] == null) && (collisions[1][1] == null) && (getVx() > 0)) 
-				setX(advanceX(timestep));	
+					advanceX(timestep);	
 			
 			setVx(advanceVx(timestep));
 			
 			if((collisions[2][0] == null) && (collisions[2][1] == null) && (getVy() > 0)
 				|| (collisions[3][0] == null) && (collisions[3][1] == null) && (getVx() < 0)) 
-				setY(advanceY(timestep));
+				advanceY(timestep);
 			
 			setVy(advanceVy(timestep));
 		
@@ -744,7 +614,7 @@ public class Mazub {
 				/helpparameter;
 	}
 	
-	private void collisionhandle(Object[][] collisions){
+	protected void collisionhandle(Object[][] collisions){
 		for(int i = 0; i <= 4; i++){
 			ArrayList collision_objects = (ArrayList) collisions[i][0];
 			for(int j = 0; j < collision_objects.size(); j ++){
